@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react"
 import { useGame } from "./GameProvider"
 import Rocket from "./Rocket"
 import './gameBoard.css'
+import QuestionModal from "./Question"
 
 
 export default function GameBoard() {
@@ -49,6 +50,7 @@ export default function GameBoard() {
                 </div>
             </div>
 
+            <QuestionModal />
         </div>
 
     )
