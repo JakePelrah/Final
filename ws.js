@@ -50,6 +50,7 @@ wss.on('connection', function connection(ws) {
             wss.clients.forEach(function each(client) {
                 if (client.readyState === WebSocket.OPEN) {
                     client.send(JSON.stringify(userData));
+                    console.log(userData)
                 }
             });
         }

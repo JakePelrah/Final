@@ -3,16 +3,22 @@ import { useGame } from './GameProvider'
 import './rocket.css'
 
 export default function Rocket({ imgPath, variation = 0 }) {
-    const { setRockets } = useGame()
+    const { gameData } = useGame()
     const flamesRef = useRef(null)
     const launchIdRef = useRef(null)
     const rocketRef = useRef(null)
 
     useEffect(() => {
         flamesRef.current.style.visibility = 'hidden'
-        setRockets(prevState=>[...prevState, {variation, launch}])
     }, [])
 
+
+    useEffect(() => {
+        console.log(gameData)
+        if (gameData > 10) {
+            launch()
+        }
+    }, [gameData])
 
     function launch() {
 
@@ -30,7 +36,7 @@ export default function Rocket({ imgPath, variation = 0 }) {
 
     }
 
-    
+
 
     function abort() {
         clearInterval(launchIdRef.current)

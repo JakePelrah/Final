@@ -5,21 +5,20 @@ import './gameBoard.css'
 
 
 export default function GameBoard() {
-    const { score, gameData, increment } = useGame()
+    const { gameData, increment } = useGame()
 
-    const renderScore = score => [...Array(score).keys()].map(star => <div><img className="star" src="./star.svg"></img></div>)
+    const renderScore = [...Array(gameData || 0).keys()]?.map(star => <div><img className="star" src="./star.svg"></img></div>)
     const renderUsers = [...Array(18).keys()].map(user => <span className="player-badge">
         MM
     </span>
     )
 
- 
     return (
         <div id="gameboard" className="d-flex justify-content-between">
 
             <div id="score-left" className="score">
                 <div className="">
-                    {renderScore(gameData)}
+                    {renderScore}
                 </div>
             </div>
 
@@ -29,15 +28,15 @@ export default function GameBoard() {
             </div>
 
             <div className="controls d-flex align-items-center gap-5">
-               
+
                 <div className="d-flex justify-content-center flex-wrap gap-2">
                     {renderUsers}
                 </div>
-               
+
                 <div className="divider m-5">
-                <button onClick={increment} className="">IN</button>
+                    <button onClick={increment} className="">IN</button>
                 </div>
-        
+
                 <div className="d-flex justify-content-center flex-wrap gap-2">
                     {renderUsers}
                 </div>
@@ -46,7 +45,7 @@ export default function GameBoard() {
             <div id="score=right" className="score">
                 <div className="">
 
-                    {renderScore(gameData)}
+                    {renderScore}
                 </div>
             </div>
 
