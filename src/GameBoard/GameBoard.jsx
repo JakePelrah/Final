@@ -28,7 +28,7 @@ export default function GameBoard() {
                 <Rocket imgPath='rocket_02.svg' variation={1} />
             </div>
 
-            <div className="game-players d-flex align-items-center gap-5">
+            <div className="game-layers d-flex align-items-center gap-5">
 
                 <div className="d-flex justify-content-center flex-wrap gap-2">
                     {renderUsers}

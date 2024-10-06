@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react"
 
+import { useGame } from "./GameProvider"
 
 export default function CreateGame() {
-    const [roomId, setRoomId] = useState('')
-
+    const {setRoomId, roomId}=useGame()
 
     function createRoom() {
         fetch('/create', { method: 'POST' })
@@ -15,7 +14,7 @@ export default function CreateGame() {
 
         <div className='controls d-flex justify-content-center align-items-center'>
             <button onClick={createRoom} className="custom-btn btn">Create</button>
-            {roomId}
         </div>
+        {roomId}
     </div>)
 }

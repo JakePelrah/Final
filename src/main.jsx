@@ -1,8 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import GameProvider from './Game/GameProvider.jsx'
 import CreateGame from './Game/CreateGame.jsx';
-import Join from './Game/Join.jsx';
-import GameBoard from './GameBoard/GameBoard.jsx';
+import Game from './Game/Game.jsx';
 import './index.css'
 
 import {
@@ -14,17 +13,12 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Join/>
-
+    element: <Game />
   },
   {
-    path:"/game",
-    element:<GameBoard/>
+    path: "/create",
+    element: <CreateGame />
 
-  },
-  {
-    path:'/create',
-    element:<CreateGame/>
   }
 ]);
 

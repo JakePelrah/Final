@@ -38,7 +38,6 @@ wss.on('connection', function connection(ws) {
 
         if (data.event === 'open') {
             ws.user = data
-            console.log(rooms)
         }
 
         if (data.event === 'count') {
@@ -52,7 +51,6 @@ wss.on('connection', function connection(ws) {
             wss.clients.forEach(function each(client) {
                 if (client.readyState === WebSocket.OPEN) {
                     client.send(JSON.stringify(userData));
-                    console.log(userData)
                 }
             });
         }

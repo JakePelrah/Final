@@ -18,10 +18,16 @@ app.use(express.static(path.join(__dirname, 'dist'))); // Serve static files fro
 
 
 app.post('/auth', (req, res) => {
-  const { roomCode, player } = req.body
-  const room = rooms.find(room => room.roomId == roomCode)
-  room.players.push(player)
-  res.json({ authenticated: true })
+  const { roomId, player } = req.body
+  const room = rooms.find(room => room.roomId == roomId)
+  if (room) {
+    room.players.push(player)
+    res.json({access:true, roomId})
+  }
+  else {
+    res.json({access:false})
+  }
+
 })
 
 app.post('/create', (req, res) => {
