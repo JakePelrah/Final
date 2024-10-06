@@ -7,6 +7,7 @@ export const useGame = () => useContext(GameContext)
 export default function GameProvider({ children }) {
     const [gameData, setGameData] = useState([])
     const [count, setCount] = useState(0)
+    const[score, setScore]= useState([5, 10])
     const wsRef = useRef(null)
 
 
@@ -19,8 +20,10 @@ export default function GameProvider({ children }) {
             ws.send(JSON.stringify({ event: 'open', name: 'Jake', id: uuidv4() }))
         };
 
-        ws.onmessage = (msg) => console.log(JSON.parse(msg.data))
+        ws.onmessage = (msg) => {
+            setGameData(JSON.parse(msg.data))}
 
+        
         ws.close = (e) => console.log(e)       
 
         return () => ws.close()
@@ -38,7 +41,7 @@ export default function GameProvider({ children }) {
 
     return (
         <GameContext.Provider value={{
-            increment
+            increment, gameData,score
         }}>
             {children}
         </GameContext.Provider>

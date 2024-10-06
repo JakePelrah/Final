@@ -1,7 +1,7 @@
 import WebSocket, { WebSocketServer } from 'ws';
 // import { v4 as uuidv4 } from 'uuid';
 
-const clients = []
+
 
 const wss = new WebSocketServer({
     port: 8080,
@@ -29,6 +29,8 @@ const wss = new WebSocketServer({
 wss.on('connection', function connection(ws) {
 
     ws.on('error', console.error);
+    ws.on('pong', ()=>console.log('pong'))
+    
 
     ws.on('message', function message(data, isBinary) {
 
@@ -36,6 +38,7 @@ wss.on('connection', function connection(ws) {
 
         if (data.event === 'open') {
             ws.user = data
+            ws.ping()
         }
 
         if (data.event === 'count') {
