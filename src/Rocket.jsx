@@ -6,14 +6,16 @@ export default function Rocket({ imgPath, variation = 0 }) {
     const rocketRef = useRef(null)
 
     useEffect(() => {
+        flamesRef.current.style.visibility='hidden'
         setTimeout(launch, 2000)
     }, [])
 
 
     function launch() {
 
-        if (variation === 0) {
+        if (variation === 1 || true) {
             rocketRef.current.classList.add('launched')
+            flamesRef.current.style.visibility=''
 
             launchIdRef.current = setInterval(() => {
                 flamesRef.current
