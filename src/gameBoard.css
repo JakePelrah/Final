@@ -1,6 +1,6 @@
 #launch-platform {
     position: fixed;
-    bottom: -4.5em;
+    bottom: 2.5em;
     left: 0;
     right: 0;
 
@@ -9,13 +9,29 @@
     margin-right: auto;
 }
 
+.player-badge{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font-size: .75em !important;
+    border-radius: .1em;
+    font-weight: bold;
+    align-items: center;
+    display: flex;
+    height: 1.5em;
+    padding: .5em;
+}
 .controls {
-    width: 100%;
-    height: 6em;
+    height:15% ;
     position: fixed;
     bottom: 0;
-    background-color: var(--accent-color);
+    background-color: rgb(1, 3, 67);
     border-color: 1px solid black;
+    color: #f4f4f4;
+}
+
+.btn{
+    background-color: rgb(84, 159, 245);
+    color: wheat;
 }
 
 .score {
@@ -50,4 +66,9 @@ pre {
 
 code {
     font-family: monospace;
+}
+
+.divider{
+    height: 100%;
+    width: 25%
 }
