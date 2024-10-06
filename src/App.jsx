@@ -1,11 +1,13 @@
 import { useGame } from './GameProvider'
-import './App.css'
+import GameBoard from './GameBoard'
 
 function App() {
- const {increment}= useGame()
+  const { increment, gameData } = useGame()
 
   return (
-   <button onClick={increment}>INC</button>
+    <div className='container-fluid'>
+      <GameBoard />
+    </div>
   )
 }
 

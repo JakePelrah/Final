@@ -1,0 +1,19 @@
+
+
+/*newly added items start faded out and translated 400px upwards on the y-axis*/
+.launched {
+    /* opacity: 0; */
+    animation: new-item-animation 10s linear forwards;
+}
+
+@keyframes new-item-animation {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+}
+
+    to {
+        opacity: 1;
+        transform : translateY(-1000px);
+    }
+}
