@@ -1,6 +1,6 @@
 #launch-platform {
     position: fixed;
-    bottom: 5.5em;
+    bottom: -4.5em;
     left: 0;
     right: 0;
 
@@ -9,18 +9,19 @@
     margin-right: auto;
 }
 
-.controls{
+.controls {
     width: 100%;
-    height: 10em;
+    height: 6em;
     position: fixed;
     bottom: 0;
-    background-color: rgb(1, 3, 67);
+    background-color: var(--accent-color);
+    border-color: 1px solid black;
 }
 
 .score {
     background-color: var(--accent-color);
     height: 100vh;
-    width: 10%;
+    width: 9%;
     text-align: center;
 }
 

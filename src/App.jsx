@@ -5,9 +5,7 @@ function App() {
   const { increment, gameData } = useGame()
 
   return (
-    <div className='container-fluid'>
       <GameBoard />
-    </div>
   )
 }
 

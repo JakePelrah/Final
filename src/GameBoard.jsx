@@ -7,7 +7,6 @@ import './gameBoard.css'
 export default function GameBoard() {
     const { score } = useGame()
 
-
     const renderScore = score => [...Array(score).keys()].map(star => <div><img className="star" src="./star.svg"></img></div>)
 
     return (
