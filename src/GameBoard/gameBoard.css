@@ -31,10 +31,10 @@
     color: #f4f4f4;
 }
 
-.btn {
+/* .btn {
     background-color: rgb(84, 159, 245);
     color: wheat;
-}
+} */
 
 .score {
     background-color: var(--accent-color);

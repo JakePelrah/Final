@@ -2,6 +2,7 @@ import WebSocket, { WebSocketServer } from 'ws';
 // import { v4 as uuidv4 } from 'uuid';
 
 
+export const rooms = []
 
 const wss = new WebSocketServer({
     port: 8080,
@@ -37,6 +38,7 @@ wss.on('connection', function connection(ws) {
 
         if (data.event === 'open') {
             ws.user = data
+            console.log(rooms)
         }
 
         if (data.event === 'count') {
