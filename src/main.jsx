@@ -1,11 +1,36 @@
 import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
-import GameProvider from './GameProvider.jsx'
+import GameProvider from './Game/GameProvider.jsx'
+import CreateGame from './Game/CreateGame.jsx';
+import Join from './Game/Join.jsx';
+import GameBoard from './GameBoard/GameBoard.jsx';
 import './index.css'
+
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Join/>
+
+  },
+  {
+    path:"/game",
+    element:<GameBoard/>
+
+  },
+  {
+    path:'/create',
+    element:<CreateGame/>
+  }
+]);
 
 createRoot(document.getElementById('root')).render(
   <GameProvider>
-    <App />
+    <RouterProvider router={router} />
   </GameProvider>
 
 )

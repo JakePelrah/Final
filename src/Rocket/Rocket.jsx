@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useGame } from './GameProvider'
+import { useGame } from "../Game/GameProvider"
 import './rocket.css'
 
 export default function Rocket({ imgPath, variation = 0 }) {

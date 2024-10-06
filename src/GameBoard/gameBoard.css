@@ -22,7 +22,7 @@
     user-select: none;
 }
 
-.controls {
+.game-players {
     height: 15%;
     position: fixed;
     bottom: 0;
@@ -83,4 +83,13 @@ code {
 
 .form-check-input:checked {
     background-color: rgb(1, 3, 67);
+}
+
+
+#gameboard {
+    background-image: url('/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0px -7em;
+    background-color: rgba(1, 3, 67, 0.671);
 }

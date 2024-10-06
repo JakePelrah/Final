@@ -15,6 +15,7 @@ const app = express();
 app.use(express.json()); // Parse JSON bodies
 app.use(express.static(path.join(__dirname, 'dist'))); // Serve static files from 'dist'
 
+
 // Handle client-side routing, returning all requests to the app
 app.get('*', (_req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html')); // Send index.html for client-side routing

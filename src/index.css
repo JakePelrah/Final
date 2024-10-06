@@ -3,10 +3,18 @@
     --main-color: rgb(103, 103, 103);
 }
 
-body {
-    background-image: url('../public/bg.jpg');
+.background {
+    background-image: url('/bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 0px -7em;
     background-color: rgba(1, 3, 67, 0.671);
+    width: 100vw;
+    height: 100vh;
+}
+
+.controls{
+    width: 80%;
+    height: 50%;
+    background-color: var(--accent-color);
+    border-radius: 1em;
 }
