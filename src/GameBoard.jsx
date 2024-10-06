@@ -5,7 +5,7 @@ import './gameBoard.css'
 
 
 export default function GameBoard() {
-    const { score } = useGame()
+    const { score, gameData, increment } = useGame()
 
     const renderScore = score => [...Array(score).keys()].map(star => <div><img className="star" src="./star.svg"></img></div>)
     const renderUsers = [...Array(18).keys()].map(user => <span className="player-badge">
@@ -13,12 +13,13 @@ export default function GameBoard() {
     </span>
     )
 
+ 
     return (
         <div id="gameboard" className="d-flex justify-content-between">
 
             <div id="score-left" className="score">
                 <div className="">
-                    {renderScore(score[0])}
+                    {renderScore(gameData)}
                 </div>
             </div>
 
@@ -33,7 +34,9 @@ export default function GameBoard() {
                     {renderUsers}
                 </div>
                
-                <div className="divider m-5"></div>
+                <div className="divider m-5">
+                <button onClick={increment} className="">IN</button>
+                </div>
         
                 <div className="d-flex justify-content-center flex-wrap gap-2">
                     {renderUsers}
@@ -43,7 +46,7 @@ export default function GameBoard() {
             <div id="score=right" className="score">
                 <div className="">
 
-                    {renderScore(score[1])}
+                    {renderScore(gameData)}
                 </div>
             </div>
 

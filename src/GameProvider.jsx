@@ -7,9 +7,9 @@ export const useGame = () => useContext(GameContext)
 export default function GameProvider({ children }) {
     const [gameData, setGameData] = useState([])
     const [count, setCount] = useState(0)
-    const[score, setScore]= useState([5, 10])
+    const [score, setScore] = useState([5, 10])
+    const [rockets, setRockets] = useState([])
     const wsRef = useRef(null)
-
 
     // init ws
     useEffect(() => {
@@ -21,19 +21,21 @@ export default function GameProvider({ children }) {
         };
 
         ws.onmessage = (msg) => {
-            setGameData(JSON.parse(msg.data))}
+            setGameData(JSON.parse(msg.data)[0].count)
+        }
 
-        
-        ws.close = (e) => console.log(e)       
+        ws.close = (e) => console.log(e)
 
         return () => ws.close()
     }, [])
 
     useEffect(() => {
-       wsRef.current?.send(JSON.stringify({event:'count', count}))
+        wsRef.current?.send(JSON.stringify({ event: 'count', count }))
+
+        if (count === 10) {
+            rockets[Math.round(Math.random())].launch()
+        }
     }, [count])
-
-
 
     function increment() {
         setCount(count + 1)
@@ -41,7 +43,7 @@ export default function GameProvider({ children }) {
 
     return (
         <GameContext.Provider value={{
-            increment, gameData,score
+            increment, gameData, score, setRockets
         }}>
             {children}
         </GameContext.Provider>

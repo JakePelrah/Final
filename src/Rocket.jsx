@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
+import { useGame } from './GameProvider'
 import './rocket.css'
+
 export default function Rocket({ imgPath, variation = 0 }) {
+    const { setRockets } = useGame()
     const flamesRef = useRef(null)
     const launchIdRef = useRef(null)
     const rocketRef = useRef(null)
 
     useEffect(() => {
-        flamesRef.current.style.visibility='hidden'
-        setTimeout(launch, 2000)
+        flamesRef.current.style.visibility = 'hidden'
+        setRockets(prevState=>[...prevState, {variation, launch}])
     }, [])
 
 
@@ -15,7 +18,7 @@ export default function Rocket({ imgPath, variation = 0 }) {
 
         if (variation === 1 || true) {
             rocketRef.current.classList.add('launched')
-            flamesRef.current.style.visibility=''
+            flamesRef.current.style.visibility = ''
 
             launchIdRef.current = setInterval(() => {
                 flamesRef.current
@@ -26,6 +29,8 @@ export default function Rocket({ imgPath, variation = 0 }) {
         }
 
     }
+
+    
 
     function abort() {
         clearInterval(launchIdRef.current)
