@@ -15,7 +15,7 @@ export default function Rocket({ imgPath, variation = 0 }) {
 
     useEffect(() => {
         console.log(gameData)
-        if (gameData > 10) {
+        if (gameData === 10) {
             launch()
         }
     }, [gameData])

@@ -6,7 +6,7 @@ import QuestionModal from "./Question"
 
 
 export default function GameBoard() {
-    const { gameData, increment } = useGame()
+    const { gameData} = useGame()
 
     const renderScore = [...Array(gameData || 0).keys()]?.map(star => <div><img className="star" src="./star.svg"></img></div>)
     const renderUsers = [...Array(18).keys()].map(user => <span className="player-badge">
@@ -35,7 +35,6 @@ export default function GameBoard() {
                 </div>
 
                 <div className="divider m-5">
-                    <button onClick={increment} className="">IN</button>
                 </div>
 
                 <div className="d-flex justify-content-center flex-wrap gap-2">

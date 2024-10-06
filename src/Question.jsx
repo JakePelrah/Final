@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 import * as bootstrap from 'bootstrap'
+import { useGame } from "./GameProvider"
 
 export default function QuestionModal() {
-
+    const { increment } = useGame()
     const [timer, setTimer] = useState(10)
     const modalRef = useRef(null)
 
@@ -13,20 +14,21 @@ export default function QuestionModal() {
     }, [])
 
 
-    useEffect(()=>{
+    useEffect(() => {
 
         const timerId = setInterval(() => {
             setTimer(timer - 1)
+            increment()
         }, 1000)
-    
+
         if (timer === 0) {
             clearInterval(timerId)
             modalRef.current.hide()
         }
 
         return () => clearInterval(timerId);
-    },[timer])
-   
+    }, [timer])
+
 
 
     return (
