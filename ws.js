@@ -28,6 +28,17 @@ const wss = new WebSocketServer({
 });
 
 
+function updateClients(roomId, event, data=null) {
+    wss.clients.forEach(function each(client) {
+        if (client.readyState === WebSocket.OPEN) {
+            if (client.roomId == roomId) {
+                client.send(JSON.stringify({ event, data }));
+            }
+        }
+    });
+}
+
+
 wss.on('connection', function connection(ws) {
 
     ws.on('error', console.error);
@@ -46,25 +57,25 @@ wss.on('connection', function connection(ws) {
         if (data.event === 'join') {
             const { roomId, playerName, uuid } = data
             const room = rooms.find(room => room.roomId == roomId)
-            if(room){
+            if (room) {
                 room.players.push({ playerName, uuid })
                 ws.roomId = roomId
-                ws.send(JSON.stringify({ event: "joined", joined:true }))
+                updateClients(roomId, 'update', room)
+                ws.send(JSON.stringify({ event: "joined", joined: true }))
             }
-            else{
-                ws.send(JSON.stringify({ event: "joined", joined:false }))
+            else {
+                ws.send(JSON.stringify({ event: "joined", joined: false }))
             }
         }
 
         if (data.event === 'start') {
-            wss.clients.forEach(function each(client) {
-                if (client.readyState === WebSocket.OPEN) {
-                    console.log(client.roomId, data.roomId)
-                    if (client.roomId == data.roomId) {
-                        client.send(JSON.stringify({ event: 'start' }));
-                    }
-                }
-            });
+            const { roomId } = data
+            updateClients(roomId, 'start')
+        }
+
+        if (data.event === 'nextQuestion') {
+            const { roomId } = data
+            updateClients(roomId, 'question', { question: "This is the question.", options: ["A", "B", "C", "D"] })
         }
     });
 

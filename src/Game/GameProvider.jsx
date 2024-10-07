@@ -9,9 +9,10 @@ export default function GameProvider({ children }) {
     const [playerName, setPlayerName] = useState('')
     const [started, setStarted] = useState(false)
     const [connected, setConnected] = useState(false)
+    const [question, setQuestion] = useState({ })
 
-    const [gameData, setGameData] = useState(0)
-    const [count, setCount] = useState(0)
+
+    const [gameData, setGameData] = useState([])
     const [rockets, setRockets] = useState([])
     const wsRef = useRef(null)
 
@@ -30,11 +31,18 @@ export default function GameProvider({ children }) {
                 setRoomId(msg.roomId)
             }
             if (msg.event === 'joined') {
-                console.log(msg.joined)
                 msg.joined ? setConnected(true) : setConnected(false)
             }
             if (msg.event === 'start') {
+                console.log('start')
                 setStarted(true)
+            }
+            if (msg.event === 'update') {
+                setGameData(msg.data.players)
+            }
+            if (msg.event === 'question') {
+                console.log(msg)
+                setQuestion(msg.data)
             }
         }
 
@@ -47,8 +55,14 @@ export default function GameProvider({ children }) {
         wsRef.current.send(JSON.stringify({ event: 'create' }))
     }
 
+    function nextQuestion(e) {
+        e.preventDefault()
+        wsRef.current.send(JSON.stringify({ event: 'nextQuestion', roomId, question: { question: new Date(), options: ["A", "B", "C", "D"] } }))
+    }
+
     function startGame(e) {
         e.preventDefault()
+        setStarted(true)
         wsRef.current.send(JSON.stringify({ event: 'start', roomId }))
     }
 
@@ -62,16 +76,14 @@ export default function GameProvider({ children }) {
         }
     }
 
-    useEffect(() => {
-        wsRef.current?.send(JSON.stringify({ event: 'count', count }))
-    }, [count])
 
 
     return (
         <GameContext.Provider value={{
             gameData, setRockets, onJoin, roomId,
-            setRoomId, setStarted,
-            started, setPlayerName, connected, startGame, createRoom
+            setRoomId, setStarted, question,
+            started, setPlayerName, connected, 
+            startGame, createRoom, nextQuestion
         }}>
             {children}
         </GameContext.Provider>

@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from "react"
 import * as bootstrap from 'bootstrap'
 
-export default function QuestionModal() {
+export default function QuestionModal({ question }) {
     const [timer, setTimer] = useState(10)
     const modalRef = useRef(null)
 
 
     useEffect(() => {
-        modalRef.current = new bootstrap.Modal('.modal')
-        modalRef.current.show()
-    }, [])
+        if (question.question) {
+            modalRef.current = new bootstrap.Modal('.modal')
+            modalRef.current.show()
+        }
+    }, [question])
 
 
     useEffect(() => {
@@ -20,6 +22,7 @@ export default function QuestionModal() {
 
         if (timer === 0) {
             clearInterval(timerId)
+            setTimer(10)
             modalRef.current.hide()
         }
 
@@ -36,27 +39,30 @@ export default function QuestionModal() {
                         <h1 className="modal-title fs-5" id="exampleModalLabel">JavaScript</h1>
                     </div>
                     <div className="modal-body">
-                        The question
+                        {question.question}
                         <div className="form-check">
                             <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
                             <label className="form-check-label" for="flexRadioDefault1">
-                                Default radio
+                                {question?.options?.[0]}
                             </label>
                         </div>
                         <div className="form-check">
                             <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
                             <label className="form-check-label" for="flexRadioDefault1">
-                                Default radio
+                                {question?.options?.[1]}
+
                             </label>
                         </div>  <div className="form-check">
                             <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
                             <label className="form-check-label" for="flexRadioDefault1">
-                                Default radio
+                                {question?.options?.[2]}
+
                             </label>
                         </div>  <div className="form-check">
                             <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
                             <label className="form-check-label" for="flexRadioDefault1">
-                                Default radio
+                                {question?.options?.[3]}
+
                             </label>
                         </div>
                     </div>

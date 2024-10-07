@@ -8,7 +8,7 @@ import { useGame } from "./GameProvider";
 export default function Game() {
     const { setRoomId,
         setPlayerName, started,
-        connected, onJoin} = useGame()
+        connected, onJoin, gameData, question } = useGame()
 
     function renderPage() {
         if (!connected) {
@@ -17,10 +17,10 @@ export default function Game() {
                 onJoin={onJoin} />
         }
         else if (connected && !started) {
-            return <WaitingRoom />
+            return <WaitingRoom gameData={gameData} />
         }
         else if (connected && started) {
-            return <GameBoard />
+            return <GameBoard question={question} />
         }
     }
 
