@@ -9,7 +9,8 @@ export default function GameProvider({ children }) {
     const [playerName, setPlayerName] = useState('')
     const [started, setStarted] = useState(false)
     const [connected, setConnected] = useState(false)
-    const [question, setQuestion] = useState({ })
+    const [question, setQuestion] = useState({})
+    const [hostName, setHostName] = useState('')
 
 
     const [gameData, setGameData] = useState([])
@@ -29,19 +30,18 @@ export default function GameProvider({ children }) {
             msg = JSON.parse(msg.data)
             if (msg.event === 'created') {
                 setRoomId(msg.roomId)
+                setHostName(msg.hostName)
             }
             if (msg.event === 'joined') {
                 msg.joined ? setConnected(true) : setConnected(false)
             }
             if (msg.event === 'start') {
-                console.log('start')
                 setStarted(true)
             }
             if (msg.event === 'update') {
                 setGameData(msg.data.players)
             }
             if (msg.event === 'question') {
-                console.log(msg)
                 setQuestion(msg.data)
             }
         }
@@ -52,7 +52,9 @@ export default function GameProvider({ children }) {
     }, [])
 
     function createRoom() {
-        wsRef.current.send(JSON.stringify({ event: 'create' }))
+        if (hostName) {
+            wsRef.current.send(JSON.stringify({ event: 'create', hostName }))
+        }
     }
 
     function nextQuestion(e) {
@@ -76,14 +78,12 @@ export default function GameProvider({ children }) {
         }
     }
 
-
-
     return (
         <GameContext.Provider value={{
             gameData, setRockets, onJoin, roomId,
             setRoomId, setStarted, question,
-            started, setPlayerName, connected, 
-            startGame, createRoom, nextQuestion
+            started, setPlayerName, connected,
+            startGame, createRoom, nextQuestion, setHostName
         }}>
             {children}
         </GameContext.Provider>

@@ -18,8 +18,8 @@ const router = createBrowserRouter([
   {
     path: "/create",
     element: <CreateGame />
-
   }
+  
 ]);
 
 createRoot(document.getElementById('root')).render(

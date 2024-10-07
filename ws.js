@@ -28,7 +28,7 @@ const wss = new WebSocketServer({
 });
 
 
-function updateClients(roomId, event, data=null) {
+function updateClients(roomId, event, data = null) {
     wss.clients.forEach(function each(client) {
         if (client.readyState === WebSocket.OPEN) {
             if (client.roomId == roomId) {
@@ -50,8 +50,9 @@ wss.on('connection', function connection(ws) {
 
         if (data.event === 'create') {
             const roomId = Math.floor(100000 + Math.random() * 900000)
-            rooms.push({ roomId, players: [] })
-            ws.send(JSON.stringify({ event: "created", roomId }))
+            const { hostName } = data
+            rooms.push({ roomId, players: [], hostName })
+            ws.send(JSON.stringify({ event: "created", roomId, hostName }))
         }
 
         if (data.event === 'join') {
