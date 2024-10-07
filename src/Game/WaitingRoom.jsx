@@ -1,6 +1,6 @@
-export default function WaitingRoom({ startGame }) {
+export default function WaitingRoom() {
 
     return (<div className="background">
-        <button onClick={(e) => startGame(e)}>START</button>
+    
         Waiting room</div>)
 }

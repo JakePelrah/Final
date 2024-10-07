@@ -1,5 +1,5 @@
 import WebSocket, { WebSocketServer } from 'ws';
-// import { v4 as uuidv4 } from 'uuid';
+
 
 
 export const rooms = []
@@ -27,30 +27,42 @@ const wss = new WebSocketServer({
     }
 });
 
+
 wss.on('connection', function connection(ws) {
 
     ws.on('error', console.error);
-  
+
 
     ws.on('message', function message(data, isBinary) {
 
         data = JSON.parse(data)
 
-        if (data.event === 'open') {
-            ws.user = data
+        if (data.event === 'create') {
+            const roomId = Math.floor(100000 + Math.random() * 900000)
+            rooms.push({ roomId, players: [] })
+            ws.send(JSON.stringify({ event: "created", roomId }))
         }
 
-        if (data.event === 'count') {
-            ws.count = data.count
+        if (data.event === 'join') {
+            const { roomId, playerName, uuid } = data
+            const room = rooms.find(room => room.roomId == roomId)
+            if(room){
+                room.players.push({ playerName, uuid })
+                ws.roomId = roomId
+                ws.send(JSON.stringify({ event: "joined", joined:true }))
+            }
+            else{
+                ws.send(JSON.stringify({ event: "joined", joined:false }))
+            }
+        }
 
-            const userData = []
-            wss.clients.forEach(client => {
-                userData.push({ name: client?.user?.name, count: client?.count, id: client?.user?.id })
-            })
-
+        if (data.event === 'start') {
             wss.clients.forEach(function each(client) {
                 if (client.readyState === WebSocket.OPEN) {
-                    client.send(JSON.stringify(userData));
+                    console.log(client.roomId, data.roomId)
+                    if (client.roomId == data.roomId) {
+                        client.send(JSON.stringify({ event: 'start' }));
+                    }
                 }
             });
         }

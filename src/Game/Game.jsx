@@ -4,25 +4,24 @@ import WaitingRoom from "./WaitingRoom";
 import GameBoard from "../GameBoard/GameBoard";
 import { useGame } from "./GameProvider";
 
+
 export default function Game() {
     const { setRoomId,
-        setPlayerData, started,
-        connected, onJoin, startGame } = useGame()
+        setPlayerName, started,
+        connected, onJoin} = useGame()
 
-    console.log(connected)
     function renderPage() {
         if (!connected) {
             return <Join setRoomId={setRoomId}
-                setPlayerData={setPlayerData}
+                setPlayerName={setPlayerName}
                 onJoin={onJoin} />
         }
         else if (connected && !started) {
-            return <WaitingRoom startGame={startGame} />
+            return <WaitingRoom />
         }
         else if (connected && started) {
             return <GameBoard />
         }
-
     }
 
     return (<>

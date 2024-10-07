@@ -2,19 +2,16 @@
 import { useGame } from "./GameProvider"
 
 export default function CreateGame() {
-    const {setRoomId, roomId}=useGame()
-
-    function createRoom() {
-        fetch('/create', { method: 'POST' })
-            .then(res => res.json())
-            .then(({ roomId }) => setRoomId(roomId))
-    }
+    const { roomId, startGame, createRoom } = useGame()
 
     return (<div className='background d-flex justify-content-center align-items-center'>
 
-        <div className='controls d-flex justify-content-center align-items-center'>
-            <button onClick={createRoom} className="custom-btn btn">Create</button>
+        <div className='controls d-flex flex-column justify-content-center align-items-center'>
+            <div className="text-white fw-bold">{roomId}</div>
+
+            {roomId ? <button onClick={startGame} className="custom-btn btn">Start</button> :
+                <button onClick={createRoom} className="custom-btn btn">Create</button>
+            }
         </div>
-        {roomId}
     </div>)
 }
